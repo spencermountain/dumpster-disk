@@ -1,0 +1,22 @@
+{
+  "name": "dumpster-disk",
+  "version": "0.0.1",
+  "description": "write contents of a wikipedia dump to the filesystem",
+  "author": "Spencer Kelly",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "dependencies": {},
+  "homepage": "https://github.com/spencermountain/dumpster-disk#readme",
+  "bugs": {
+    "url": "https://github.com/spencermountain/dumpster-disk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/dumpster-disk.git"
+  },
+  "license": "MIT"
+}
