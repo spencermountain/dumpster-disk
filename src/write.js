@@ -1,5 +1,11 @@
+const writeFile = function (chunk) {
+  console.log(chunk)
+}
+
 const writeFiles = (chunks) => {
-  console.log(chunks.length)
+  for (let i = 0; i < chunks.length; i++) {
+    writeFile(chunks[i])
+  }
 }
 
 export default writeFiles

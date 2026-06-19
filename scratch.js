@@ -6,7 +6,7 @@ await dumpsterDisk({
   lang: 'sw',
   format: 'text',
   chunkSize: 10,
-  format: 'text',
+  format: 'sm',
   file: '/Volumes/4TB/wikipedia/swwiki-latest-pages-articles.xml'
 })
 console.log('dumpster-disk end')
