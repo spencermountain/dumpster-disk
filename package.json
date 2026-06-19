@@ -9,7 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dumpster-lib": "^1.0.0"
+  },
   "homepage": "https://github.com/spencermountain/dumpster-disk#readme",
   "bugs": {
     "url": "https://github.com/spencermountain/dumpster-disk/issues"
