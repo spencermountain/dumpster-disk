@@ -1,12 +1,16 @@
 import dumpsterDisk from './src/index.js'
 
-console.log('dumpster-disk start')
 await dumpsterDisk({
+  // outputDir: '/Volumes/4TB/dumpster-disk',
+  outputDir: '/Users/spencer/Desktop/dumpster',
   project: 'wikipedia',
-  lang: 'sw',
+  // lang: 'sw',
+  lang: 'simple',
   format: 'text',
   chunkSize: 10,
   format: 'sm',
-  file: '/Volumes/4TB/wikipedia/swwiki-latest-pages-articles.xml'
+  outputMode: 'encyclopedia',
+  // file: '/Volumes/4TB/wikipedia/swwiki-latest-pages-articles.xml'
+  file: '/Volumes/4TB/wikipedia/simplewiki-latest-pages-articles.xml'
 })
 console.log('dumpster-disk end')

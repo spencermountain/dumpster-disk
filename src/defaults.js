@@ -1,4 +1,5 @@
 export default {
+  outputMode: 'hash',
   // directory for all our new files
   outputDir: './dumpster', // (default)
   // which wikipedia namespaces to handle (null will do all)
