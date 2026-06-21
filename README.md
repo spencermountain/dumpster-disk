@@ -1,3 +1,44 @@
+<div align="center">
+  <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+  <div><b>dumpster-disk</b></div>
+  <img src="https://user-images.githubusercontent.com/399657/68222691-6597f180-ffb9-11e9-8a32-a7f38aa8bded.png"/>
+  <div>parse a wikipedia dump into JSON files</div>
+  <div><code>npm install dumpster-disk</code></div>
+  <div align="center">
+    <sub>
+      by
+      <a href="https://spencermounta.in/">Spencer Kelly</a> and
+      <a href="https://github.com/spencermountain/dumpster-lib/graphs/contributors">
+        contributors
+      </a>
+    </sub>
+  </div>
+  <img height="22px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+</div>
+
+<div align="center">
+  <div>
+    <a href="https://npmjs.org/package/dumpster-lib">
+    <img src="https://img.shields.io/npm/v/dumpster-lib.svg?style=flat-square" />
+  </a>
+  <a href="https://codecov.io/gh/spencermountain/dumpster-lib">
+    <img src="https://codecov.io/gh/spencermountain/dumpster-lib/branch/master/graph/badge.svg" />
+  </a>
+  <a href="https://bundlephobia.com/result?p=dumpster-lib">
+    <img src="https://img.shields.io/bundlephobia/min/dumpster-lib"/>
+  </a>
+  </div>
+  <div align="center">
+    <sub>
+     <a href="https://github.com/spencermountain/dumpster-disk">dumpster-disk</a> • <a href="https://github.com/spencermountain/dumpster-duck">dumpster-duck</a>  • <a href="https://github.com/spencermountain/dumpster-dip">dumpster-dip</a> • <a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a>
+    </sub>
+  </div>
+</div>
+
+<!-- spacer -->
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+
 ### Usage
 
 ```js
@@ -31,11 +72,12 @@ For this reason, [Wikipedia itself](https://commons.wikimedia.org/wiki/Commons:F
 
 Its is opaque though - to retreive file from the filename, you'll need a quick function:
 ```js
+import { createHash } from 'node:crypto'
+
 const getPath = function (title, ext='json') {
-  const hash = md5(title) // from whatever md5 library you use
+  const hash = createHash('md5').update(title, 'utf8').digest('hex')
   const encodedTitle = encodeURIComponent(title)
-  let path = `${hash.substring(0, 1)}/${hash.substring(0, 2)}/${encodedTitle}.${ext}`
-  return path
+  return `${hash.substring(0, 1)}/${hash.substring(0, 2)}/${encodedTitle}.${ext}`
 }
 getPath('Boston (disambiguation)')
 // 'f/f4/Boston%20(disambiguation).json'

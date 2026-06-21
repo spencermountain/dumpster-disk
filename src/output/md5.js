@@ -1,19 +1,11 @@
 /* eslint-disable no-bitwise */
 /*
- * JavaScript MD5
- * https://github.com/blueimp/JavaScript-MD5
+ * JavaScript MD5 -  https://github.com/blueimp/JavaScript-MD5
+ * Copyright 2011, Sebastian Tschan https://blueimp.net
  *
- * Copyright 2011, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
- *
- * Based on
- * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+ * Licensed under the MIT license
+ * Based on A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
  * Digest Algorithm, as defined in RFC 1321.
- * Version 2.2 Copyright (C) Paul Johnston 1999 - 2009
- * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
  * Distributed under the BSD License
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
@@ -173,24 +165,6 @@ function rstrMD5(s) {
   return binl2rstr(binlMD5(rstr2binl(s), s.length * 8))
 }
 
-function rstrHMACMD5(key, data) {
-  let i
-  let bkey = rstr2binl(key)
-  let ipad = []
-  let opad = []
-  let hash
-  ipad[15] = opad[15] = undefined
-  if (bkey.length > 16) {
-    bkey = binlMD5(bkey, key.length * 8)
-  }
-  for (i = 0; i < 16; i += 1) {
-    ipad[i] = bkey[i] ^ 0x36363636
-    opad[i] = bkey[i] ^ 0x5c5c5c5c
-  }
-  hash = binlMD5(ipad.concat(rstr2binl(data)), 512 + data.length * 8)
-  return binl2rstr(binlMD5(opad.concat(hash), 512 + 128))
-}
-
 function rstr2hex(input) {
   let hexTab = '0123456789abcdef'
   let output = ''
@@ -211,27 +185,7 @@ function rawMD5(s) {
   return rstrMD5(str2rstrUTF8(s))
 }
 
-function hexMD5(s) {
+const hexMD5 = function (s) {
   return rstr2hex(rawMD5(s))
 }
-
-function rawHMACMD5(k, d) {
-  return rstrHMACMD5(str2rstrUTF8(k), str2rstrUTF8(d))
-}
-
-function hexHMACMD5(k, d) {
-  return rstr2hex(rawHMACMD5(k, d))
-}
-
-export default function md5(string, key, raw) {
-  if (!key) {
-    if (!raw) {
-      return hexMD5(string)
-    }
-    return rawMD5(string)
-  }
-  if (!raw) {
-    return hexHMACMD5(key, string)
-  }
-  return rawHMACMD5(key, string)
-}
+export default hexMD5

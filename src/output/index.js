@@ -1,8 +1,7 @@
-import toNestedPath from './nested-path.js'
+import { makeNestedHash, makeHashTwo } from './hash-paths.js'
 import fs from 'fs'
-import encodeTitle from './encodeTitle.js'
-
 import path from 'path'
+import { sanitizeSegment, safeTitle, safeRelativePath } from './sanitize.js'
 
 // recursively create any nested directories
 const writeFile = function (file, json) {
@@ -10,8 +9,8 @@ const writeFile = function (file, json) {
   fs.writeFileSync(file, JSON.stringify(json, null, 2))
 }
 
-const append = function (file, txt) {
-  fs.writeFileSync(file, txt, { flag: 'a' })
+const append = function (file, json) {
+  fs.writeFileSync(file, json, { flag: 'a' })
 }
 
 // modes:  nested | flat | ndjson
@@ -19,26 +18,29 @@ const output = function (res, title, opts) {
   const { outputDir, outputMode } = opts
   let dir = outputDir
   if (outputMode === 'flat') {
-    title = encodeTitle(title)
-    dir = path.join(dir, title + '.txt')
+    dir = path.join(dir, safeTitle(title) + '.json')
     writeFile(dir, res)
   } else if (outputMode === 'encyclopedia' || outputMode === 'encyclopedia-one') {
-    let title = encodeTitle(res.title)
-    let c = title.substring(0, 1).toLowerCase() || '-'
-    dir = path.join(dir, c, title + '.txt')
+    const name = safeTitle(res.title)
+    const c = sanitizeSegment(name.substring(0, 1).toLowerCase(), '__')
+    dir = path.join(dir, c, name + '.json')
     writeFile(dir, res)
   } else if (outputMode === 'encyclopedia-two' || outputMode === 'encyclopedia-2') {
-    let title = encodeTitle(res.title)
-    let c = title.substring(0, 2).toLowerCase() || '--'
-    dir = path.join(dir, c, title + '.txt')
+    const name = safeTitle(res.title)
+    const c = sanitizeSegment(name.substring(0, 2).toLowerCase(), '__')
+    dir = path.join(dir, c, name + '.json')
     writeFile(dir, res)
   } else if (outputMode === 'ndjson') {
     dir = path.join(dir, './index.ndjson')
     append(dir, JSON.stringify(res) + '\n')
+  } else if (outputMode === 'hash-two') {
+    const name = safeTitle(res.title)
+    dir = path.join(dir, safeRelativePath(makeHashTwo(name)) + '.json')
+    writeFile(dir, res)
   } else {
     // (nested hash)
-    title = encodeTitle(title)
-    dir = path.join(dir, toNestedPath(title) + '.txt')
+    const name = safeTitle(title)
+    dir = path.join(dir, safeRelativePath(makeNestedHash(name)) + '.json')
     writeFile(dir, res)
   }
 }
