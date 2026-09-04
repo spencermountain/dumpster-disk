@@ -1,23 +1,15 @@
-import dumpster from '/Users/spencer/mountain/dumpster-lib/src/index.js'
+import dumpster from 'dumpster-lib'
 import writeFiles from './write.js'
-
 import defaults from './defaults.js'
 
 const dumpsterDisk = (options) => {
-  let p = new Promise((resolve, reject) => {
-    // merge in the defaults
-    options = Object.assign({}, defaults, options)
-    // kick of the parsing process
-    dumpster(options).on('chunk', (chunks) => {
-      // each chunk we write to the filesystem
-      writeFiles(chunks, options)
-    }).on('end', () => {
-      resolve()
-    }).on('error', (error) => {
-      reject(error)
-    })
+  options = Object.assign({}, defaults, options)
+  const pool = dumpster(options)
+  // our writes are synchronous, so each batch is on disk before the pool hands over the next
+  pool.on('batch', (pages) => {
+    writeFiles(pages, options)
   })
-  return p
+  return pool.done
 }
 
 export default dumpsterDisk

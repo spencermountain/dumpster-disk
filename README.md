@@ -42,12 +42,12 @@
 ### Usage
 
 ```js
-import dumpsterDisk from './src/index.js'
+import dumpsterDisk from 'dumpster-disk'
 
-await dumpsterDisk({
+const stats = await dumpsterDisk({
   file: '~/Downloads/simplewiki-latest-pages-articles.xml',
   outputDir: '~/Desktop/dumpster',
-  chunkSize: 10,
+  batchPageCount: 100,
   format: 'sm', // 'sm', 'md', 'lg', 'html', 'text'...
   outputMode: 'encyclopedia', // 'hash', 'flat', 'nested', 'encyclopedia', 'encyclopedia-two', 'ndjson'
 })
