@@ -39,6 +39,27 @@
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
+### Development
+
+Install dependencies and run tests from this directory:
+
+```sh
+pnpm install
+pnpm test
+```
+
+When checked out in the parent dumpster workspace, pnpm uses the local
+`dumpster-lib` when its version matches the dependency range. A standalone clone
+uses the registry package.
+
+To publish from this directory, first ensure any required version of
+`dumpster-lib` is published, then run:
+
+```sh
+pnpm test
+pnpm publish
+```
+
 ### Usage
 
 ```js
