@@ -4,7 +4,7 @@ const UNSAFE = /[<>:"|?*\x00-\x1f/\\]/g
 const RESERVED = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i
 
 const sanitizeSegment = (segment, fallback = '__') => {
-  let s = String(segment ?? '').replace(UNSAFE, '_').replace(/[. ]+$/, '').trim()
+  const s = String(segment ?? '').replace(UNSAFE, '_').replace(/[. ]+$/, '').trim()
   if (!s || s === '.' || s === '..' || RESERVED.test(s)) return fallback
   return s.length > 255 ? s.slice(0, 255) : s
 }

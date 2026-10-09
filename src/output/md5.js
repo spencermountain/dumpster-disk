@@ -1,4 +1,4 @@
-/* eslint-disable no-bitwise */
+/* eslint-disable no-bitwise, max-params */
 /*
  * JavaScript MD5 -  https://github.com/blueimp/JavaScript-MD5
  * Copyright 2011, Sebastian Tschan https://blueimp.net
@@ -11,8 +11,8 @@
  */
 
 function safeAdd(x, y) {
-  let lsw = (x & 0xffff) + (y & 0xffff)
-  let msw = (x >> 16) + (y >> 16) + (lsw >> 16)
+  const lsw = (x & 0xffff) + (y & 0xffff)
+  const msw = (x >> 16) + (y >> 16) + (lsw >> 16)
   return (msw << 16) | (lsw & 0xffff)
 }
 
@@ -42,7 +42,7 @@ function md5ii(a, b, c, d, x, s, t) {
 
 function binlMD5(x, len) {
   /* append padding */
-  x[len >> 5] |= 0x80 << len % 32
+  x[len >> 5] |= 0x80 << (len % 32)
   x[(((len + 64) >>> 9) << 4) + 14] = len
 
   let i
@@ -140,23 +140,23 @@ function binlMD5(x, len) {
 function binl2rstr(input) {
   let i
   let output = ''
-  let length32 = input.length * 32
+  const length32 = input.length * 32
   for (i = 0; i < length32; i += 8) {
-    output += String.fromCharCode((input[i >> 5] >>> i % 32) & 0xff)
+    output += String.fromCharCode((input[i >> 5] >>> (i % 32)) & 0xff)
   }
   return output
 }
 
 function rstr2binl(input) {
   let i
-  let output = []
+  const output = []
   output[(input.length >> 2) - 1] = undefined
   for (i = 0; i < output.length; i += 1) {
     output[i] = 0
   }
-  let length8 = input.length * 8
+  const length8 = input.length * 8
   for (i = 0; i < length8; i += 8) {
-    output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32
+    output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << (i % 32)
   }
   return output
 }
@@ -166,7 +166,7 @@ function rstrMD5(s) {
 }
 
 function rstr2hex(input) {
-  let hexTab = '0123456789abcdef'
+  const hexTab = '0123456789abcdef'
   let output = ''
   let x
   let i

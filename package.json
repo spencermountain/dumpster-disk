@@ -2,26 +2,31 @@
   "name": "dumpster-disk",
   "version": "0.0.1",
   "description": "write contents of a wikipedia dump to the filesystem",
+  "license": "MIT",
+  "repository": "github:spencermountain/dumpster-disk",
   "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
+  "main": "./src/index.js",
+  "sideEffects": true,
   "engines": {
     "node": ">=18.0.0"
   },
-  "prettier": {
-    "trailingComma": "none",
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 100
-  },
-  "main": "src/index.js",
   "scripts": {
-    "test": "node --test \"tests/*.test.js\"",
+    "test": "node tests/index.js",
     "start": "node src/index.js",
     "lint": "eslint ."
   },
   "dependencies": {
     "dumpster-lib": "^0.1.0"
   },
-  "repository": "github:spencermountain/dumpster-disk",
-  "license": "MIT"
+  "devDependencies": {
+    "tap-dancer": "^0.4.0",
+    "tape": "^5.10.2"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }
